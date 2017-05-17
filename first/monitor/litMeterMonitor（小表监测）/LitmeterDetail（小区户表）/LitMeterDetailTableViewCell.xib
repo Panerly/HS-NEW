@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="111" id="KGk-i7-Jjw" customClass="LitMeterDetailTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="417" height="111"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="417" height="110"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="户主名称" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gk-18-Kly">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="litMeterDetailCellID" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Kh-xa-XpR">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="60s-5b-7YX"/>
+                            <constraint firstAttribute="width" constant="50" id="Xtl-Qz-1Cb"/>
+                        </constraints>
+                        <state key="normal" image="定位2.png"/>
+                        <connections>
+                            <action selector="navi:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kyw-cy-hQj"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgE-ci-j22">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="ATN-My-S4G"/>
+                            <constraint firstAttribute="width" constant="50" id="zet-u3-Eh8"/>
+                        </constraints>
+                        <state key="normal" image="icon_his_btn@2x.png"/>
+                        <connections>
+                            <action selector="scanHisBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MpE-Lc-p6I"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7tC-cc-J6A">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sgE-ci-j22" firstAttribute="leading" secondItem="2gk-18-Kly" secondAttribute="trailing" constant="5" id="B7B-T2-N9f"/>
+                    <constraint firstItem="5Kh-xa-XpR" firstAttribute="leading" secondItem="sgE-ci-j22" secondAttribute="trailing" constant="10" id="Cui-p8-Yf3"/>
+                    <constraint firstItem="sgE-ci-j22" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KI0-l6-5kO"/>
+                    <constraint firstItem="2gk-18-Kly" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="MiG-6I-XBI"/>
+                    <constraint firstItem="7tC-cc-J6A" firstAttribute="top" secondItem="2gk-18-Kly" secondAttribute="bottom" constant="3" id="W9R-ZR-onq"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="5Kh-xa-XpR" secondAttribute="trailing" id="Xac-j3-sSh"/>
+                    <constraint firstItem="7tC-cc-J6A" firstAttribute="width" secondItem="2gk-18-Kly" secondAttribute="width" id="cWg-6N-vqz"/>
+                    <constraint firstItem="2gk-18-Kly" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="hyJ-Py-JEo"/>
+                    <constraint firstItem="5Kh-xa-XpR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ueg-6x-blM"/>
+                    <constraint firstItem="7tC-cc-J6A" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="ywj-LY-MYS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="meter_status" destination="7tC-cc-J6A" id="lSC-B4-8iy"/>
+                <outlet property="userAddr" destination="2gk-18-Kly" id="Arz-SU-bPN"/>
+            </connections>
+            <point key="canvasLocation" x="43" y="315"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_his_btn@2x.png" width="32" height="32"/>
+        <image name="定位2.png" width="32" height="32"/>
+    </resources>
+</document>

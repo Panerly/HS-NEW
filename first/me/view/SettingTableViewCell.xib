@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="userIdenty" rowHeight="65" id="KGk-i7-Jjw" customClass="SettingTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="64.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="杭州水表有限公司" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOD-WG-w7Q">
+                        <rect key="frame" x="68" y="22" width="201" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_user" translatesAutoresizingMaskIntoConstraints="NO" id="S3V-s8-5cA">
+                        <rect key="frame" x="8" y="8" width="50" height="50"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="Spd-G5-l4V"/>
+                            <constraint firstAttribute="width" constant="50" id="ZQh-Ds-hKo"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OOD-WG-w7Q" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="4Xw-Ng-0MA"/>
+                    <constraint firstItem="S3V-s8-5cA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Fkf-T3-V0V"/>
+                    <constraint firstItem="S3V-s8-5cA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="O8L-PT-evR"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="OOD-WG-w7Q" secondAttribute="trailing" constant="10" id="UzJ-Ke-EW7"/>
+                    <constraint firstItem="OOD-WG-w7Q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="maD-H3-HFP"/>
+                    <constraint firstItem="OOD-WG-w7Q" firstAttribute="leading" secondItem="S3V-s8-5cA" secondAttribute="trailing" constant="10" id="t1P-rC-z7x"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="4Xw-Ng-0MA"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="userImage" destination="S3V-s8-5cA" id="C3c-qv-CCD"/>
+                <outlet property="userName" destination="OOD-WG-w7Q" id="szW-Sc-qkH"/>
+            </connections>
+            <point key="canvasLocation" x="446" y="246.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_user" width="64" height="64"/>
+    </resources>
+</document>

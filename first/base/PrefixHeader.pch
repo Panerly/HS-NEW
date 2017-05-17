@@ -1,0 +1,117 @@
+//
+//  PrefixHeader.pch
+//  first
+//
+//  Created by HS on 16/5/23.
+//  Copyright © 2016年 HS. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+
+#define  PanRandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1];
+#define COLORRGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+
+#define PanScreenWidth [UIScreen mainScreen].bounds.size.width
+#define PanScreenHeight [UIScreen mainScreen].bounds.size.height
+
+
+#import "SCChart.h"
+#import "SCToastView.h"
+#import "GUAAlertView.h"
+#import "LLSwitch.h"
+#import "FTPopOverMenu.h"
+#import "JHChart.h"
+#import "LSStatusBarHUD.h"
+
+//登录接口
+#define logInApi @"http://www.hzsbgs.com:8000/Meter_Reading/S_Login_InfoServlet2"
+
+//天气key
+#define weatherAPIkey @"87aa67335bd8e0739a06cfccc6edecb5"
+//天气
+#define weatherAPI @"http://apis.baidu.com/heweather/pro/weather"
+
+//杭水简介
+#define introduction @"http://www.hzsberp.com:9999/hzsb"
+
+//小表数据平台@"http://www.hzsbgs.com:8000"
+#define litMeterApi @"http://www.hzsbgs.com:8000"
+
+//大小表抄收监控数据
+#define mapCompleteApi @"http://www.hzsbgs.com:8000/Meter_Reading/IosMapCompleteServlet"
+
+#define mapBigMeterCompleteApi @"http://www.hzsbgs.com:8000/Meter_Reading/MapComplete_Servlet"
+
+//抄表数据上传接口
+#define uploadApi @"http://www.hzsbgs.com:8000/Meter_Reading/Reading_nowServlet1";
+
+
+
+#define cancelTitle @"取消"
+
+#endif /* PrefixHeader_pch */
+
+
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+
+//define this constant if you want to use Masonry without the 'mas_' prefix
+#define MAS_SHORTHAND
+
+//define this constant if you want to enable auto-boxing for default syntax
+#define MAS_SHORTHAND_GLOBALS
+
+#import "Masonry.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MKFoundation.h>
+#import <MapKit/MKPlacemark.h>
+#import <MapKit/MKMapItem.h>
+#import <ShareSDK/ShareSDK.h>
+#import "SVProgressHUD.h"
+#import "FMDB.h"
+#import "UIImage+GIF.h"
+#import "AFNetworking.h"
+#import "MJRefresh.h"
+#import "MJRefreshConst.h"
+#import "AnimationView.h"
+
+#import "UIColor+WHE.h"
+#import "UINavigationBar+Awesome.h"
+#import "MLTransition.h"
+
+
+#import "GCD.h"
+
+
+
+#ifdef DEBUG
+#define SRLog(FORMAT, ...) {\
+NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];\
+[dateFormatter setDateStyle:NSDateFormatterMediumStyle];\
+[dateFormatter setTimeStyle:NSDateFormatterShortStyle];\
+[dateFormatter setDateFormat:@"HH:mm:ss:SSSS"];\
+NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];\
+fprintf(stderr,"[%s:%d %s] %s\n", [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [dateString UTF8String], [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);\
+}
+#else
+#define SRLog(FORMAT, ...) nil
+#endif
+
+#if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
+typedef long NSInteger;
+typedef unsigned long NSUInteger;
+#else
+typedef int NSInteger;
+typedef unsigned int NSUInteger;
+#endif
+
+#endif
