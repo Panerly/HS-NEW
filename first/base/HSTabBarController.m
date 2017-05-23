@@ -29,6 +29,7 @@
 //    HomeViewController *home = [[HomeViewController alloc] init];
 //    [self addOneChlildVc:home title:@"首页" imageName:@"home2@2x" selectedImageName:@"home_selected2@2x"];
    
+    
     //添加子控制器
     NewHomeViewController *home = [[NewHomeViewController alloc] init];
     [self addOneChlildVc:home title:@"首页" imageName:@"home2@3x" selectedImageName:@"home_selected2@2x"];

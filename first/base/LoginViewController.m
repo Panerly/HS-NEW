@@ -13,6 +13,7 @@
 #import "HyLoglnButton.h"
 #import "ConfigViewController.h"
 //#import "KeychainItemWrapper.h"
+#import "ListSelectView.h"
 
 @interface LoginViewController ()<UIViewControllerTransitioningDelegate,UITextFieldDelegate>
 {
@@ -23,7 +24,10 @@
     NSString *notiUserName;
     NSString *notiPassWord;
     NSUserDefaults *defaults;
+    ListSelectView *select_view;
 }
+@property (nonatomic, strong) NSMutableArray *selectTitles;
+@property (nonatomic, strong) NSMutableArray *selectAreas;
 @end
 
 @implementation LoginViewController
@@ -62,6 +66,13 @@
     
     //创建登录btn
     [self _createLogBtn];
+    
+    if (!_selectAreas) {
+        
+        _selectAreas  = [NSMutableArray array];
+        _selectTitles = [NSMutableArray array];
+    }
+    
     NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"status"]);
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"status"] isEqualToString:@"ok"]) {
         //成功进入
@@ -279,11 +290,23 @@
                     
                 }];
             }else{//管理员 、配置完成
-                [self logIn];
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"db"] isEqualToString:@"bigmeter_chizhou"]) {//池州分区域
+                    
+                    [self requestArea];
+                } else {
+                    
+                    [self logIn];
+                }
             }
             
         }else{//非管理员
-            [self logIn];
+            if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"db"] isEqualToString:@"bigmeter_chizhou"]) {//池州分区域
+                
+                [self requestArea];
+            } else {
+                
+                [self logIn];
+            }
         }
         
     
@@ -306,9 +329,102 @@
     }
 
 }
+//池州获取分区数据
+- (void)requestArea {
+    
+    NSString *areaUrl = [NSString stringWithFormat:@"http://%@/waterweb/SelectareaServlet",self.ipLabel];
+    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
+    
+    manager.requestSerializer.timeoutInterval = 10;
+    
+    NSDictionary *parameters = @{@"username":self.userName.text,
+                                 @"password":self.passWord.text,
+                                 @"db":self.dbLabel,
+                                 };
+    
+    AFHTTPResponseSerializer *serializer = manager.responseSerializer;
+    
+    serializer.acceptableContentTypes = [serializer.acceptableContentTypes setByAddingObject:@"text/plain"];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self.selectTitles removeAllObjects];
+    [self.selectAreas removeAllObjects];
+    
+    NSURLSessionTask *task = [manager POST:areaUrl parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"列表：%@",responseObject);
+        
+        [weakSelf.selectTitles addObject:@"全部"];
+        [weakSelf.selectAreas addObject:@"all"];
+        
+        for (NSDictionary *dic in responseObject) {
+            
+            if (![[dic objectForKey:@"flg"] isEqualToString:@"00"]) {
+                
+                [weakSelf.selectAreas addObject:[dic objectForKey:@"flg"]];
+                [weakSelf.selectTitles addObject:[dic objectForKey:@"collector_area"]];
+            }
+            [weakSelf showListView:weakSelf.selectTitles];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        NSLog(@"获取列表失败，失败信息：%@",error);
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"列表获取失败" message:[NSString stringWithFormat:@"错误代码：%ld",error.code] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        UIAlertAction *retry = [UIAlertAction actionWithTitle:@"重试" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [weakSelf requestArea];
+        }];
+        
+        [alert addAction:cancel];
+        [alert addAction:retry];
+        
+    }];
+    [task resume];
+}
 
+- (void)showListView:(NSMutableArray *)arr {
+    
+    if (!select_view) {
+        
+        select_view = [[ListSelectView alloc] initWithFrame:CGRectMake(0, 0, PanScreenWidth, PanScreenHeight)];
+    }
+    
+    select_view.choose_type     = MORECHOOSETITLETYPE;
+    select_view.isShowCancelBtn = YES;
+    select_view.isShowSureBtn   = NO;
+    select_view.isShowTitle     = YES;
+    
+    
+    __weak typeof(self) weakSelf = self;
+    [select_view addTitleArray:arr andTitleString:@"请选择区域" animated:YES completionHandler:^(NSString * _Nullable string, NSInteger index) {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:weakSelf.selectAreas[index] forKey:@"flg"];
+        
+        [weakSelf logIn];
+    } withSureButtonBlock:^{
+        
+    }];
+    [self.view addSubview:select_view];
+}
 //登录
 - (void)logIn {
+    
+    if (select_view) {
+        
+        [select_view removeFromSuperview];
+        select_view = nil;
+    }
     
     //登录API 需传入的参数：用户名、密码、数据库名、IP地址
     NSString *logInUrl = [NSString stringWithFormat:@"http://%@/Meter_Reading/S_Login_InfoServlet2",self.ipLabel];

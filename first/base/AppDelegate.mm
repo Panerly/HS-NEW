@@ -129,7 +129,7 @@ BMKMapManager* _mapManager;
     }
     
     
-    loginVC                        = [[LoginViewController alloc] init];
+    loginVC = [[LoginViewController alloc] init];
     self.window.rootViewController = loginVC;
     
     

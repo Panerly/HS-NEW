@@ -69,7 +69,13 @@ UINavigationControllerDelegate
     
     [self _createTabelView];
     
-    [self _requestArea];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"db"] isEqualToString:@"bigmeter_chizhou"]) {
+        
+        [self _requestAreaData:[[NSUserDefaults standardUserDefaults] objectForKey:@"flg"]];
+    }else {
+        
+        [self _requestArea];
+    }
     
     self.dataArr = [NSMutableArray array];
     areaListArr  = [NSMutableArray array];
