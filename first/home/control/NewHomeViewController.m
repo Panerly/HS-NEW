@@ -54,8 +54,6 @@
     
     [self setScroll];
     
-//    [self setNavColor];//设置导航栏颜色
-    
     [self _requestWeatherData:@"杭州"];
     
     //适配4寸
@@ -84,7 +82,6 @@
     
     self.backgroudView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_home_bg"]];
     _backgroudView.frame = self.view.bounds;
-    //[self.view addSubview:self.backgroudView];
     [self.view insertSubview:self.backgroudView atIndex:0];
 }
 
@@ -851,7 +848,7 @@ static int timesOut = 0;
     }
     else if ([weatherType containsString:@"尘"]) { //沙尘暴
         [self changeImageAnimated:[UIImage imageNamed:@"bg_sunny_day.jpg"]];
-        
+        [self snow];
     }
     else if ([weatherType containsString:@"雾"]||[weatherType containsString:@"霾"]) { //雾霾
         [self changeImageAnimated:[UIImage imageNamed:@"bg_haze.jpg"]];
@@ -906,7 +903,29 @@ static int timesOut = 0;
     
 }
 
-
+//下雪
+- (void)snow {
+    
+    //加载JSON文件
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"rainData.json" ofType:nil];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    //将JSON数据转为NSArray或NSDictionary
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    _jsonArray = dict[@"weather"][@"image"];
+    for (NSInteger i = 0; i < _jsonArray.count; i++) {
+        
+        NSDictionary *dic = [_jsonArray objectAtIndex:i];
+        UIImageView *snowView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"snow"]];
+        snowView.tag = 1000+i;
+        NSArray *originArr = [dic[@"-origin"] componentsSeparatedByString:@","];
+        snowView.frame = CGRectMake([originArr[0] integerValue]*widthPix , [originArr[1] integerValue], arc4random()%7+3, arc4random()%7+3);
+        [self.view addSubview:snowView];
+        [snowView.layer addAnimation:[self rainAnimationWithDuration:5+i%5] forKey:nil];
+        [snowView.layer addAnimation:[self rainAlphaWithDuration:5+i%5] forKey:nil];
+        [snowView.layer addAnimation:[self sunshineAnimationWithDuration:5] forKey:nil];//雪花旋转
+    }
+    
+}
 //晴天动画
 - (void)sun {
     //太阳

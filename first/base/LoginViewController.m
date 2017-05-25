@@ -401,7 +401,7 @@
     }
     
     select_view.choose_type     = MORECHOOSETITLETYPE;
-    select_view.isShowCancelBtn = YES;
+    select_view.isShowCancelBtn = NO;
     select_view.isShowSureBtn   = NO;
     select_view.isShowTitle     = YES;
     

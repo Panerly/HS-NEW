@@ -58,7 +58,7 @@
 - (void)_createVersion {
     
     UIButton *versionBtn = [[UIButton alloc] initWithFrame:CGRectMake((PanScreenWidth-200)/2, PanScreenHeight - 49 -50, 200, 40)];
-    [versionBtn setTitle:@"版本：V1.2.2" forState:UIControlStateNormal];
+    [versionBtn setTitle:@"版本：V1.2.3" forState:UIControlStateNormal];
     [versionBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [versionBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [versionBtn addTarget:self action:@selector(versionAction) forControlEvents:UIControlEventTouchUpInside];

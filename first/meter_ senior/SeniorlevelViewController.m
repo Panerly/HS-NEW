@@ -354,71 +354,64 @@ UITableViewDataSource
 - (void)setSelectBtn :(UIButton *)sender{
     
     __weak typeof (self) weakSelf = self;
-    [FTPopOverMenu showForSender:sender
-                        withMenu:@[@"大表",@"小表",@"分享"]
-                  imageNameArray:@[@"icon_bigMeter",@"icon_smallMeter",@"share_icon.png"]
-                       doneBlock:^(NSInteger selectedIndex) {
-                           
-                           if (selectedIndex == 0) {
-                               
-                               if (weakSelf.tableView) {
-                                   
-                                   weakSelf.tableView.hidden = NO;
-                               }
-                               
-                               [timer invalidate];
-                               [weakSelf setTimer];
-                               isBigMeter = YES;
-                               bmkViewTag = 300;
-                               [_bmkMapView removeAnnotations:_annomationArray];
-                               
-                               for (int i = 0; i < _bigMeterDataArr.count; i++) {
-                                   
-                                   BMKPointAnnotation* bigMeterAnnotation = [[BMKPointAnnotation alloc]init];
-                                   CLLocationCoordinate2D coor;
-                                   coor.latitude  = [((MapDataModel *)_bigMeterDataArr[i]).y floatValue];
-                                   coor.longitude = [((MapDataModel *)_bigMeterDataArr[i]).x floatValue];
-                                   bigMeterAnnotation.coordinate = coor;
-                                   [_bmkMapView addAnnotation:bigMeterAnnotation];
-                                   [_annomationArray addObject:bigMeterAnnotation];
-                                   bmkViewTag++;
-                               }
-                           }else if (selectedIndex == 1) {
-                               
-                               if (weakSelf.tableView) {
-                                   
-                                   weakSelf.tableView.hidden = YES;
-                               }
-                               
-                               [timer invalidate];
-                               [weakSelf setTimer];
-                               isBigMeter = NO;
-                               bmkViewTag = 300;
-                               [_bmkMapView removeAnnotations:_annomationArray];
-                               
-                               for (int i = 0; i < _litMeterDataArr.count; i++) {
-                                   
-                                   BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-                                   CLLocationCoordinate2D coor;
-                                   coor.latitude  = [((MapDataModel *)_litMeterDataArr[i]).y floatValue];
-                                   coor.longitude = [((MapDataModel *)_litMeterDataArr[i]).x floatValue];
-                                   annotation.coordinate = coor;
-                                   [_bmkMapView addAnnotation:annotation];
-                                   [_annomationArray addObject:annotation];
-                                   bmkViewTag++;
-                               }
-                           }else if (selectedIndex == 2) {
-                               
-                               [weakSelf selectRightAction:sender];
-                           }
-                           
-                       } dismissBlock:^{
-                           
-                           NSLog(@"user canceled. do nothing.");
-                           
-                       }];
-    
-    
+    [FTPopOverMenu showForSender:sender withMenuArray:@[@"大表",@"小表",@"分享"] imageArray:@[@"icon_bigMeter",@"icon_smallMeter",@"share_icon.png"] doneBlock:^(NSInteger selectedIndex) {
+        
+        if (selectedIndex == 0) {
+            
+            if (weakSelf.tableView) {
+                
+                weakSelf.tableView.hidden = NO;
+            }
+            
+            [timer invalidate];
+            [weakSelf setTimer];
+            isBigMeter = YES;
+            bmkViewTag = 300;
+            [_bmkMapView removeAnnotations:_annomationArray];
+            
+            for (int i = 0; i < _bigMeterDataArr.count; i++) {
+                
+                BMKPointAnnotation* bigMeterAnnotation = [[BMKPointAnnotation alloc]init];
+                CLLocationCoordinate2D coor;
+                coor.latitude  = [((MapDataModel *)_bigMeterDataArr[i]).y floatValue];
+                coor.longitude = [((MapDataModel *)_bigMeterDataArr[i]).x floatValue];
+                bigMeterAnnotation.coordinate = coor;
+                [_bmkMapView addAnnotation:bigMeterAnnotation];
+                [_annomationArray addObject:bigMeterAnnotation];
+                bmkViewTag++;
+            }
+        }else if (selectedIndex == 1) {
+            
+            if (weakSelf.tableView) {
+                
+                weakSelf.tableView.hidden = YES;
+            }
+            
+            [timer invalidate];
+            [weakSelf setTimer];
+            isBigMeter = NO;
+            bmkViewTag = 300;
+            [_bmkMapView removeAnnotations:_annomationArray];
+            
+            for (int i = 0; i < _litMeterDataArr.count; i++) {
+                
+                BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+                CLLocationCoordinate2D coor;
+                coor.latitude  = [((MapDataModel *)_litMeterDataArr[i]).y floatValue];
+                coor.longitude = [((MapDataModel *)_litMeterDataArr[i]).x floatValue];
+                annotation.coordinate = coor;
+                [_bmkMapView addAnnotation:annotation];
+                [_annomationArray addObject:annotation];
+                bmkViewTag++;
+            }
+        }else if (selectedIndex == 2) {
+            
+            [weakSelf selectRightAction:sender];
+        }
+    } dismissBlock:^{
+        
+        NSLog(@"user canceled. do nothing.");
+    }];
 }
 
 

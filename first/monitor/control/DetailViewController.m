@@ -257,7 +257,25 @@
     
     self.inputView.okButtonClickBolck = ^(NSMutableArray *arr){
         [weakSelf.inputView hide];
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"服务器维护中，请选以下方式" preferredStyle:UIAlertControllerStyleActionSheet];
         
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:nil];
+        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *email = [UIAlertAction actionWithTitle:@"发送邮件" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto://76843918@qq.com"]];
+        }];
+        
+        UIAlertAction *sms = [UIAlertAction actionWithTitle:@"发送短信" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"sms://15356167113"]];
+        }];
+        [alertVC addAction:cancel];
+        [alertVC addAction:sms];
+        [alertVC addAction:email];
+        [weakSelf presentViewController:alertVC animated:YES completion:^{
+            
+        }];
     };
 }
 @end
